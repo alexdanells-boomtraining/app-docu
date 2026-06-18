@@ -1,49 +1,42 @@
 "use client"
 
-import { useState, useRef } from "react"
-
-type Doc = {
-  id: string
-  title: string
-  body: string
-  createdAt: string
-}
+import { useState, useEffect, useRef } from "react"
+import { type Doc, getAllDocs, putDoc, removeDoc } from "./db"
 
 type Mode = "edit" | "read"
 
-const SEED_DOCS: Doc[] = [
-  {
-    id: "1",
-    title: "Meeting Notes — June",
-    body: "Discussed Q3 roadmap and upcoming feature releases.\n\nAction items:\n- Review timeline\n- Assign owners",
-    createdAt: "15 Jun 2026",
-  },
-  {
-    id: "2",
-    title: "Project Brief",
-    body: "Overview of the document management application scope and goals.",
-    createdAt: "10 Jun 2026",
-  },
-]
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  })
+}
 
 export default function Home() {
-  const [docs, setDocs] = useState<Doc[]>(SEED_DOCS)
+  const [docs, setDocs] = useState<Doc[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [mode, setMode] = useState<Mode>("edit")
-  const idCounter = useRef(SEED_DOCS.length + 1)
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const selectedDoc = docs.find((d) => d.id === selectedId) ?? null
 
-  function handleNew() {
-    const id = String(idCounter.current++)
-    const today = new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    })
-    const newDoc: Doc = { id, title: "", body: "", createdAt: today }
-    setDocs([newDoc, ...docs])
-    setSelectedId(id)
+  useEffect(() => {
+    getAllDocs().then(setDocs)
+  }, [])
+
+  async function handleNew() {
+    const now = new Date().toISOString()
+    const doc: Doc = {
+      id: crypto.randomUUID(),
+      title: "",
+      body: "",
+      createdAt: now,
+      updatedAt: now,
+    }
+    await putDoc(doc)
+    setDocs([doc, ...docs])
+    setSelectedId(doc.id)
     setMode("edit")
   }
 
@@ -53,7 +46,22 @@ export default function Home() {
   }
 
   function handleUpdate(field: "title" | "body", value: string) {
-    setDocs(docs.map((d) => (d.id === selectedId ? { ...d, [field]: value } : d)))
+    if (!selectedDoc) return
+    const updated: Doc = {
+      ...selectedDoc,
+      [field]: value,
+      updatedAt: new Date().toISOString(),
+    }
+    setDocs(docs.map((d) => (d.id === selectedId ? updated : d)))
+
+    if (saveTimer.current) clearTimeout(saveTimer.current)
+    saveTimer.current = setTimeout(() => putDoc(updated), 500)
+  }
+
+  async function handleDelete(id: string) {
+    await removeDoc(id)
+    setDocs(docs.filter((d) => d.id !== id))
+    if (selectedId === id) setSelectedId(null)
   }
 
   return (
@@ -97,13 +105,15 @@ export default function Home() {
                 <p className="text-sm font-medium truncate">
                   {doc.title || "Untitled"}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">{doc.createdAt}</p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  {formatDate(doc.updatedAt)}
+                </p>
               </button>
             ))
           )}
         </nav>
 
-        {/* Upload */}
+        {/* Upload (disabled) */}
         <div className="px-3 py-3 border-t border-gray-200">
           <button
             disabled
@@ -117,7 +127,6 @@ export default function Home() {
       {/* ── Content pane ── */}
       <div className="flex-1 flex flex-col min-w-0">
         {!selectedDoc ? (
-          /* Empty state */
           <div className="flex-1 flex items-center justify-center text-center">
             <div>
               <p className="text-sm font-medium text-gray-500">No document open</p>
@@ -134,27 +143,37 @@ export default function Home() {
                 {selectedDoc.title || "Untitled"}
               </p>
 
-              {/* Edit / Read toggle */}
-              <div className="flex items-center gap-0.5 bg-gray-100 rounded-md p-0.5 shrink-0">
+              <div className="flex items-center gap-3 shrink-0">
+                {/* Edit / Read toggle */}
+                <div className="flex items-center gap-0.5 bg-gray-100 rounded-md p-0.5">
+                  <button
+                    onClick={() => setMode("edit")}
+                    className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+                      mode === "edit"
+                        ? "bg-white text-gray-900 shadow-sm"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => setMode("read")}
+                    className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+                      mode === "read"
+                        ? "bg-white text-gray-900 shadow-sm"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    Read
+                  </button>
+                </div>
+
+                {/* Delete */}
                 <button
-                  onClick={() => setMode("edit")}
-                  className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
-                    mode === "edit"
-                      ? "bg-white text-gray-900 shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
+                  onClick={() => handleDelete(selectedDoc.id)}
+                  className="text-xs font-medium text-red-400 hover:text-red-600 transition-colors"
                 >
-                  Edit
-                </button>
-                <button
-                  onClick={() => setMode("read")}
-                  className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
-                    mode === "read"
-                      ? "bg-white text-gray-900 shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
-                >
-                  Read
+                  Delete
                 </button>
               </div>
             </header>
