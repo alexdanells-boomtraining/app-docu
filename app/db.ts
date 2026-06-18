@@ -6,6 +6,7 @@ export type Doc = {
   body: string
   createdAt: string  // ISO string
   updatedAt: string  // ISO string
+  starred?: boolean
 }
 
 interface AppDB extends DBSchema {
@@ -39,4 +40,11 @@ export async function putDoc(doc: Doc): Promise<void> {
 export async function removeDoc(id: string): Promise<void> {
   const db = await getDB()
   await db.delete("docs", id)
+}
+
+export async function starDoc(id: string, starred: boolean): Promise<void> {
+  const db = await getDB()
+  const doc = await db.get("docs", id)
+  if (!doc) return
+  await db.put("docs", { ...doc, starred })
 }
