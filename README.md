@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SuperDocu
 
-## Getting Started
+A clean, personal document workspace that runs entirely in your browser — no account, no cloud, no backend.
 
-First, run the development server:
+## Features
+
+### Documents
+- Create, edit, and delete documents with live autosave
+- Rich text editing via TipTap — bold, italic, underline, strikethrough, highlight, headings (H1/H2), bullet lists, numbered lists
+- Unique URL per document (`/docs/abc123`) — shareable and bookmarkable
+- Word count displayed in edit mode
+- Starred / favourites for quick access
+
+### Organisation
+- **Folders** — flat one-level folder structure; assign documents by dropdown, right-click context menu, or drag-and-drop onto folder headers
+- **Tags** — add multiple tags per document; filter the sidebar by tag
+- **Search** — filter documents by title in the sidebar
+
+### Trash
+- Soft delete moves documents to a Trash section (reversible, no confirmation)
+- Restore individual documents from trash
+- Empty Trash permanently deletes all trashed documents (with confirmation)
+
+### History
+- Save named versions of a document with the Save button
+- Up to 3 versions stored per document
+- Restore any saved version
+
+### Export / Import
+- Export all documents as a JSON file
+- Import from a previous export — choose merge (keep existing + add new) or replace (overwrite everything)
+
+### Command Palette
+- Open with `Cmd+K` / `Ctrl+K`
+- Search and jump to any document, folder, or action
+- Keyboard navigable (↑↓ arrows, Enter to select, Esc to close)
+
+### Appearance
+- Light, Dark, and High Contrast themes — toggle from the sidebar header
+- Fully responsive — works on mobile and desktop
+
+### Persistence
+- All data stored locally in **IndexedDB** (via the `idb` library)
+- No backend, no account required; data stays on your device
+
+---
+
+## Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Rich text | TipTap v2 |
+| Storage | IndexedDB via `idb` |
+| Runtime | React 19 |
+
+---
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  page.tsx              # Home page (/)
+  layout.tsx            # Root layout — fonts, metadata
+  globals.css           # Tailwind + TipTap styles
+  db.ts                 # IndexedDB schema and all data access functions
+  docs/
+    workspace.tsx       # Main workspace client component
+    [[...id]]/
+      page.tsx          # Catch-all route — /docs and /docs/:id
+```
