@@ -8,8 +8,8 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Docu",
-  description: "Personal document manager",
+  title: "SuperDocu",
+  description: "Personal document workspace",
 };
 
 export default function RootLayout({
