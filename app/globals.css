@@ -49,3 +49,57 @@ body {
 .dark .ProseMirror p.is-editor-empty:first-child::before {
   color: #4b5563;
 }
+
+/* Links inside editor */
+.ProseMirror a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.dark .ProseMirror a {
+  color: #60a5fa;
+}
+
+/* Images inside editor */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 0.75rem 0;
+  display: block;
+}
+
+/* Toast entrance */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(0.75rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.toast-enter { animation: toast-in 0.18s ease-out; }
+
+/* Sidebar row entrance */
+@keyframes row-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.row-enter { animation: row-in 0.14s ease-out; }
+
+/* Toolbar entrance */
+@keyframes toolbar-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.toolbar-enter { animation: toolbar-in 0.15s ease-out; }
+
+/* Overlay entrance */
+@keyframes overlay-in {
+  from { opacity: 0; transform: scale(0.97) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.overlay-enter { animation: overlay-in 0.18s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* Print */
+@media print {
+  @page { margin: 2cm; }
+  body  { background: white !important; }
+}
