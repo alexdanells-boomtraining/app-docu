@@ -441,6 +441,43 @@ function HistoryMockup() {
   )
 }
 
+// ── Lightning bolts ────────────────────────────────────────────────────────────
+
+const BOLTS = [
+  { x: "6%",  y: "18%", size: 18, color: "#3b82f6", opacity: 0.28, dur: "5.8s", delay: "0s",    rot: "-12deg" },
+  { x: "14%", y: "62%", size: 14, color: "#6366f1", opacity: 0.22, dur: "7.2s", delay: "1.4s",  rot: "-8deg"  },
+  { x: "24%", y: "38%", size: 22, color: "#8b5cf6", opacity: 0.20, dur: "6.4s", delay: "3.1s",  rot: "-15deg" },
+  { x: "38%", y: "12%", size: 15, color: "#6366f1", opacity: 0.18, dur: "6.8s", delay: "4.6s",  rot: "-10deg" },
+  { x: "52%", y: "78%", size: 19, color: "#3b82f6", opacity: 0.22, dur: "5.5s", delay: "2.3s",  rot: "-13deg" },
+  { x: "67%", y: "28%", size: 16, color: "#8b5cf6", opacity: 0.20, dur: "7.6s", delay: "0.9s",  rot: "-9deg"  },
+  { x: "78%", y: "58%", size: 12, color: "#6366f1", opacity: 0.17, dur: "6.1s", delay: "3.8s",  rot: "-11deg" },
+  { x: "88%", y: "20%", size: 20, color: "#3b82f6", opacity: 0.24, dur: "5.2s", delay: "1.7s",  rot: "-14deg" },
+  { x: "92%", y: "72%", size: 13, color: "#8b5cf6", opacity: 0.18, dur: "7.0s", delay: "5.2s",  rot: "-8deg"  },
+]
+
+function LightningBolts() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {BOLTS.map((b, i) => (
+        <div
+          key={i}
+          className="absolute bolt-float"
+          style={{
+            left: b.x, top: b.y,
+            "--bolt-dur": b.dur,
+            "--bolt-delay": b.delay,
+            "--bolt-r": b.rot,
+          } as React.CSSProperties}
+        >
+          <svg width={b.size} height={Math.round(b.size * 1.5)} viewBox="0 0 14 22" fill={b.color} opacity={b.opacity}>
+            <path d="M8 0L0 13h5.5L4 22l10-13H8.5z" />
+          </svg>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 // ── Feature showcase (cycling) ─────────────────────────────────────────────────
 
 const SHOWCASE = [
@@ -657,6 +694,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-blue-100 to-violet-100 opacity-50 blur-3xl pointer-events-none" />
         <div className="absolute top-40 -left-20 w-80 h-80 rounded-full bg-gradient-to-tr from-indigo-100 to-pink-100 opacity-30 blur-3xl pointer-events-none" />
+        <LightningBolts />
 
         <div className="max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-16">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-center">
