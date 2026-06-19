@@ -2,6 +2,12 @@
 
 A clean, personal document workspace that runs entirely in your browser — no account, no cloud, no backend.
 
+## Screenshot
+
+![SuperDocu workspace](public/screenshot.png)
+
+> **To add the screenshot:** open the app at `http://localhost:3000/docs`, open a document, take a screenshot, and save it as `public/screenshot.png`.
+
 ## Features
 
 ### Documents
@@ -55,6 +61,24 @@ A clean, personal document workspace that runs entirely in your browser — no a
 ### Home Page
 - Animated feature card grid showcasing all capabilities
 - Recent documents strip — resume where you left off
+
+---
+
+## Optional Tasks Completed
+
+All nine optional tasks were implemented across dedicated feature branches:
+
+| Task | Branch | Difficulty |
+|---|---|---|
+| Starred documents | `easy` | Easy |
+| Dark-mode toggle | `easy` | Easy |
+| Document word count | `easy` | Easy |
+| Tags & tag filtering | `medium` | Medium |
+| Export / import JSON | `medium` | Medium |
+| Document history (3 versions) | `medium` | Medium |
+| Soft delete & Trash | `hard` | Hard |
+| Keyboard command palette (⌘K) | `hard` | Hard |
+| Folder structure | `hard` | Hard |
 
 ---
 
