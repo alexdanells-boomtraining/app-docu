@@ -1451,7 +1451,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
       {showUserGuide && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
           <div className="absolute inset-0" onClick={() => setShowUserGuide(false)} />
-          <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-lg flex flex-col max-h-[85vh]">
+          <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-lg flex flex-col">
 
             {/* Header */}
             <div className="flex items-center justify-between px-6 pt-4 pb-3 shrink-0">
@@ -1486,7 +1486,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
             <div className="h-px bg-gray-100 dark:bg-gray-700 shrink-0 mx-6" />
 
             {/* Section content */}
-            <div className="overflow-y-auto flex-1 px-6 py-5">
+            <div className="overflow-y-auto h-80 px-6 py-5">
               <div className="space-y-3">
                 {GUIDE_SECTIONS[guideSection].items.map((item) => (
                   <div key={item.name} className="flex gap-3">
