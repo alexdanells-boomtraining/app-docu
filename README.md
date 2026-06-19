@@ -2,11 +2,13 @@
 
 A clean, personal document workspace that runs entirely in your browser — no account, no cloud, no backend.
 
-## Screenshot
+## Screenshots
 
-![SuperDocu workspace](public/screenshot.png)
+### Home page
+![SuperDocu home page](public/screenshot-home.png)
 
-> **To add the screenshot:** open the app at `http://localhost:3000/docs`, open a document, take a screenshot, and save it as `public/screenshot.png`.
+### Workspace
+![SuperDocu workspace](public/screenshot-workspace.png)
 
 ## Features
 
