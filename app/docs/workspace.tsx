@@ -960,7 +960,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
 
       {/* Mobile top bar */}
       <header className={`md:hidden flex items-center gap-3 px-4 py-3 bg-white dark:bg-gray-800 hc:bg-black border-b border-gray-200 dark:border-gray-700 hc:border-white shrink-0 print:hidden ${sidebarHidden ? "hidden" : ""}`}>
-        <button onClick={() => setSidebarOpen(true)} className="p-1 text-gray-500 dark:text-gray-400 hc:text-white">
+        <button onClick={() => setSidebarOpen(true)} className="p-2 text-gray-500 dark:text-gray-400 hc:text-white">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
         </button>
         <button
@@ -970,10 +970,10 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           <span className="text-gray-900 dark:text-gray-100 hc:text-white">Super</span><span className="bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">Docu</span>
         </button>
         <div className="ml-auto flex items-center gap-1">
-          <button onClick={cycleTheme} className="p-1 text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+          <button onClick={cycleTheme} className="p-2 text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
             {theme === "light" ? <SunIcon /> : theme === "dark" ? <MoonIcon /> : <ContrastIcon />}
           </button>
-          <button onClick={() => { setShowSettings(true); setImportStep({ step: "idle" }) }} className="p-1 text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors"><CogIcon /></button>
+          <button onClick={() => { setShowSettings(true); setImportStep({ step: "idle" }) }} className="p-2 text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors"><CogIcon /></button>
         </div>
       </header>
 
@@ -993,10 +993,10 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
               <span className="text-gray-900 dark:text-gray-100 hc:text-white">Super</span><span className="bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">Docu</span>
             </button>
             <div className="flex items-center gap-1">
-              <button onClick={cycleTheme} title={`Mode: ${theme}`} className="p-1 rounded text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+              <button onClick={cycleTheme} title={`Mode: ${theme}`} className="p-2 rounded text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                 {theme === "light" ? <SunIcon /> : theme === "dark" ? <MoonIcon /> : <ContrastIcon />}
               </button>
-              <button onClick={() => { setShowSettings(true); setImportStep({ step: "idle" }) }} className="p-1 rounded text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors"><CogIcon /></button>
+              <button onClick={() => { setShowSettings(true); setImportStep({ step: "idle" }) }} className="p-2 rounded text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors"><CogIcon /></button>
             </div>
           </div>
 
@@ -1046,11 +1046,11 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
 
           {/* Sort order */}
           {activeDocs.length > 0 && (
-            <div className="px-3 pb-2 flex items-center gap-1">
+            <div className="px-3 pb-2 flex flex-wrap items-center gap-1">
               <span className="text-xs text-gray-400 dark:text-gray-500 mr-0.5">Sort</span>
               {(["updated", "created", "title"] as SortOrder[]).map(order => (
                 <button key={order} onClick={() => setSortOrder(order)}
-                  className={`text-xs px-2 py-0.5 rounded transition-colors ${sortOrder === order ? t.btn : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"}`}>
+                  className={`text-xs px-2 py-1 rounded transition-colors ${sortOrder === order ? t.btn : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"}`}>
                   {order === "updated" ? "Recent" : order === "created" ? "Created" : "A–Z"}
                 </button>
               ))}
@@ -1235,14 +1235,14 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                     </button>
                   )}
                   <button onClick={() => setFocusMode(v => !v)} title={focusMode ? "Exit focus mode (⌘\\)" : "Focus mode (⌘\\)"}
-                    className="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                    className="p-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                     {focusMode ? <CollapseIcon /> : <ExpandIcon />}
                   </button>
                   <button onClick={() => window.print()} title="Print document"
-                    className="p-1 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                    className="p-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                     <PrintIcon />
                   </button>
-                  <button onClick={() => handleTrash(selectedDoc.id)} title="Move to trash" className="p-1 text-gray-400 hover:text-red-500 transition-colors">
+                  <button onClick={() => handleTrash(selectedDoc.id)} title="Move to trash" className="p-2 text-gray-400 hover:text-red-500 transition-colors">
                     <TrashIcon className="w-4 h-4" />
                   </button>
                 </div>
@@ -1253,7 +1253,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
 
               {/* Formatting toolbar */}
               {mode === "edit" && editor && !focusMode && (
-                <div className="toolbar-enter relative bg-white dark:bg-gray-800 hc:bg-black border-b border-gray-100 dark:border-gray-700 px-4 md:px-6 py-1 flex items-center gap-0.5 flex-wrap print:hidden">
+                <div className="toolbar-enter relative bg-white dark:bg-gray-800 hc:bg-black border-b border-gray-100 dark:border-gray-700 px-2 md:px-6 py-1 flex items-center gap-0.5 overflow-x-auto print:hidden" style={{ WebkitOverflowScrolling: "touch" }}>
                   <ToolbarBtn active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()} title="Bold (⌘B)" themeActive={t.toolbarActive}><span className="font-bold text-xs">B</span></ToolbarBtn>
                   <ToolbarBtn active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()} title="Italic (⌘I)" themeActive={t.toolbarActive}><span className="italic text-xs">I</span></ToolbarBtn>
                   <ToolbarBtn active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} title="Underline (⌘U)" themeActive={t.toolbarActive}><span className="underline text-xs">U</span></ToolbarBtn>
@@ -1271,14 +1271,18 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
 
                   {/* Inline link input */}
                   {showLinkInput && (
-                    <div data-link-input className="absolute left-0 right-0 top-full z-10 flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-md">
-                      <LinkIcon />
-                      <input ref={linkInputRef} type="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)}
-                        onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); handleLinkSubmit() } if (e.key === "Escape") setShowLinkInput(false) }}
-                        placeholder="Paste or type URL…"
-                        className="flex-1 text-sm outline-none bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400" />
-                      <button onClick={handleLinkSubmit} className={`text-xs font-medium px-2 py-1 rounded ${t.btn}`}>Add</button>
-                      <button onClick={() => setShowLinkInput(false)} className="text-xs text-gray-400 hover:text-gray-600">Cancel</button>
+                    <div data-link-input className="absolute left-0 right-0 top-full z-10 flex flex-wrap items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-md">
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <LinkIcon />
+                        <input ref={linkInputRef} type="url" inputMode="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)}
+                          onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); handleLinkSubmit() } if (e.key === "Escape") setShowLinkInput(false) }}
+                          placeholder="Paste or type URL…"
+                          className="flex-1 min-w-0 text-sm outline-none bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400" />
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button onClick={handleLinkSubmit} className={`text-xs font-medium px-3 py-1.5 rounded ${t.btn}`}>Add</button>
+                        <button onClick={() => setShowLinkInput(false)} className="text-xs text-gray-400 hover:text-gray-600 py-1.5 px-1">Cancel</button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -1293,7 +1297,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                   ) : (
                     <div className="flex gap-3 overflow-x-auto pb-1">
                       {selectedDoc.history.map((entry, i) => (
-                        <div key={i} className="shrink-0 w-48 rounded-md border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-3">
+                        <div key={i} className="shrink-0 w-40 sm:w-48 rounded-md border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-3">
                           <p className="text-xs font-medium text-gray-700 dark:text-gray-200 truncate">{entry.title || "Untitled"}</p>
                           <p className="text-xs text-gray-400 mt-0.5">{formatTime(entry.savedAt)}</p>
                           <p className="text-xs text-gray-400 mt-0.5">{wordCount(entry.body)} words</p>
@@ -1325,11 +1329,11 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                 ref={el => { mainScrollRef.current = el }}
                 onScroll={() => { if (selectedId && mainScrollRef.current) scrollPositionsRef.current[selectedId] = mainScrollRef.current.scrollTop }}
                 className="flex-1 overflow-auto">
-                <div className="max-w-2xl mx-auto px-6 md:px-8 py-10 print:max-w-none print:px-0 print:py-6">
+                <div className="max-w-2xl mx-auto px-4 md:px-8 py-6 sm:py-10 print:max-w-none print:px-0 print:py-6">
                   <input ref={titleRef} type="text" value={selectedDoc.title}
                     onChange={e => handleUpdate("title", e.target.value)}
                     onKeyDown={handleTitleKeyDown} placeholder="Untitled" readOnly={mode === "read"}
-                    className="w-full text-2xl font-semibold text-gray-900 dark:text-gray-100 hc:text-white placeholder-gray-300 dark:placeholder-gray-600 bg-transparent border-none outline-none mb-6" />
+                    className="w-full text-xl sm:text-2xl font-semibold text-gray-900 dark:text-gray-100 hc:text-white placeholder-gray-300 dark:placeholder-gray-600 bg-transparent border-none outline-none mb-6" />
 
                   {mode === "read" && (selectedDoc.folderId || (selectedDoc.tags ?? []).length > 0) && (
                     <div className="flex flex-wrap gap-1.5 mb-6 items-center print:hidden">

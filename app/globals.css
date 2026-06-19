@@ -123,6 +123,14 @@ body {
 }
 .feature-enter { animation: feature-in 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
 
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bolt-float, .doc-float, .feature-enter, .toast-enter, .row-enter, .toolbar-enter, .overlay-enter {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 /* Print */
 @media print {
   @page { margin: 2cm; }
