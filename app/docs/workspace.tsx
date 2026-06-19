@@ -165,18 +165,18 @@ function BookOpenIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0
 // ── What's New panel ─────────────────────────────────────────────────────────
 
 const WHATS_NEW = [
-  { date: "19 Jun 2026", label: "What's New Bubble",  desc: "Alex's face appears in the corner — click for the latest feature updates."  },
+  { date: "19 Jun 2026", label: "What's New Bubble",   desc: "Alex's face appears in the corner — click for the latest feature updates."  },
+  { date: "19 Jun 2026", label: "Lightning + Docs",    desc: "Animated bolts and floating documents on the home page hero."                 },
   { date: "19 Jun 2026", label: "User Guide",          desc: "Full feature reference inside the app — click the button in the sidebar footer." },
   { date: "19 Jun 2026", label: "First-Run Tutorial",  desc: "6-step walkthrough shown the first time you open the workspace."              },
-  { date: "19 Jun 2026", label: "Lightning + Docs",    desc: "Animated bolts and floating documents on the home page hero."                 },
-  { date: "12 May 2026", label: "5 Workspace Themes",  desc: "Professional, Videogames, Space, Nature, and CityScape colour sets."          },
-  { date: "12 May 2026", label: "Focus Mode",          desc: "⌘\\ hides the sidebar and toolbar for distraction-free writing."              },
-  { date: "10 May 2026", label: "Table of Contents",   desc: "Auto-generated from H1/H2 headings — click any entry to scroll."              },
-  { date: "10 May 2026", label: "Document History",    desc: "Save up to 3 snapshots per doc with ⌘S and restore any version."              },
-  { date: "8 May 2026",  label: "Folder Drag & Drop",  desc: "Drag documents between folders directly in the sidebar."                      },
-  { date: "22 Apr 2026", label: "Inline Images",       desc: "Paste or use the toolbar to embed images (base64, 5 MB max)."                 },
-  { date: "18 Apr 2026", label: "Full-Text Search",    desc: "Command palette and sidebar search scan both title and body content."          },
-  { date: "15 Apr 2026", label: "Command Palette",     desc: "⌘K opens a spotlight-style palette to jump anywhere instantly."               },
+  { date: "19 Jun 2026", label: "Feature Showcase",    desc: "Home page cycles through 4 key product features automatically."               },
+  { date: "18 Jun 2026", label: "5 Workspace Themes",  desc: "Professional, Videogames, Space, Nature, and CityScape colour sets."          },
+  { date: "18 Jun 2026", label: "Focus Mode",          desc: "⌘\\ hides the sidebar and toolbar for distraction-free writing."              },
+  { date: "18 Jun 2026", label: "Table of Contents",   desc: "Auto-generated from H1/H2 headings — click any entry to scroll."              },
+  { date: "18 Jun 2026", label: "Inline Images",       desc: "Paste or use the toolbar to embed images (base64, 5 MB max)."                 },
+  { date: "18 Jun 2026", label: "Document History",    desc: "Save up to 3 snapshots per doc with ⌘S and restore any version."              },
+  { date: "18 Jun 2026", label: "Folder Drag & Drop",  desc: "Drag documents between folders directly in the sidebar."                      },
+  { date: "18 Jun 2026", label: "Command Palette",     desc: "⌘K opens a spotlight-style palette to jump anywhere instantly."               },
 ]
 
 // ── Tutorial steps ────────────────────────────────────────────────────────────
@@ -358,7 +358,6 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [showUserGuide, setShowUserGuide] = useState(false)
   const [guideSection, setGuideSection] = useState(0)
   const [whatsNewOpen, setWhatsNewOpen] = useState(false)
-  const [whatsNewDismissed, setWhatsNewDismissed] = useState(false)
 
   const t = THEMES[workspaceTheme]
 
@@ -1676,10 +1675,10 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
       )}
 
       {/* ── What's New bubble ── */}
-      <div className="fixed bottom-5 right-5 z-[55] flex flex-col items-end gap-2 print:hidden">
+      <div className="fixed bottom-5 right-0 z-[55] flex flex-col items-end gap-2 print:hidden">
         {/* Expanded panel */}
-        {!whatsNewDismissed && whatsNewOpen && (
-          <div className="overlay-enter w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/15 overflow-hidden">
+        {whatsNewOpen && (
+          <div className="overlay-enter mr-4 w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/15 overflow-hidden">
             {/* Header */}
             <div className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-gray-100 dark:border-gray-700">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1689,9 +1688,9 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                 <p className="text-[11px] text-blue-600 dark:text-blue-400 leading-tight">What&apos;s new in SuperDocu</p>
               </div>
               <button
-                onClick={() => { setWhatsNewOpen(false); setWhatsNewDismissed(true) }}
+                onClick={() => setWhatsNewOpen(false)}
                 className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors shrink-0"
-                aria-label="Dismiss"
+                aria-label="Close"
               >
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
               </button>
@@ -1714,20 +1713,20 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           </div>
         )}
 
-        {/* Collapsed tab / avatar trigger */}
-        {!whatsNewDismissed && (
-          <button
-            onClick={() => setWhatsNewOpen(v => !v)}
-            className="group flex items-center gap-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200/70 dark:border-gray-600/70 rounded-full shadow-lg shadow-black/10 pl-1 pr-3 py-1 hover:shadow-xl hover:scale-105 transition-all duration-200"
-            title="What's new"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/alex.jpg" alt="" className="w-7 h-7 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-600 shrink-0" />
-            <span className="text-[11px] font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">
-              {whatsNewOpen ? "Close" : "What's new"}
-            </span>
-          </button>
-        )}
+        {/* Tab — always visible, anchored to the right edge */}
+        <button
+          onClick={() => setWhatsNewOpen(v => !v)}
+          className="group flex items-center gap-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border border-r-0 border-gray-200/80 dark:border-gray-600/70 rounded-l-xl shadow-lg shadow-black/10 pl-2 pr-3 py-2 hover:shadow-xl hover:pr-4 transition-all duration-200"
+          title="What's new"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/alex.jpg" alt="" className="w-7 h-7 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-600 shrink-0" />
+          <div className="text-left">
+            <p className="text-[10px] font-semibold text-gray-700 dark:text-gray-200 leading-tight whitespace-nowrap">What&apos;s new</p>
+            <p className="text-[9px] text-gray-400 dark:text-gray-500 leading-tight whitespace-nowrap">Latest updates</p>
+          </div>
+          <svg className={`w-3 h-3 text-gray-400 shrink-0 transition-transform duration-200 ${whatsNewOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>
+        </button>
       </div>
 
       {/* ── Toast notifications ── */}
