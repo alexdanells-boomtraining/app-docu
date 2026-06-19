@@ -359,6 +359,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [showUserGuide, setShowUserGuide] = useState(false)
   const [guideSection, setGuideSection] = useState(0)
   const [whatsNewOpen, setWhatsNewOpen] = useState(false)
+  const [trashConfirmId, setTrashConfirmId] = useState<string | null>(null)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
   const router = useRouter()
 
@@ -928,7 +929,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
               className={`absolute right-8 p-1 rounded transition-all ${doc.starred ? "text-amber-400 opacity-100 hover:text-amber-500" : "text-gray-400 opacity-0 group-hover:opacity-100 hover:text-amber-400 dark:text-gray-500"}`}>
               <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill={doc.starred ? "currentColor" : "none"} stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>
             </button>
-            <button onClick={e => { e.stopPropagation(); handleTrash(doc.id) }}
+            <button onClick={e => { e.stopPropagation(); setTrashConfirmId(doc.id) }}
               className="absolute right-2 opacity-0 group-hover:opacity-100 p-1 rounded text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 transition-all">
               <TrashIcon />
             </button>
@@ -1683,6 +1684,26 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           </div>
         </div>
       )}
+
+      {/* ── Trash document confirm ── */}
+      {trashConfirmId && (() => {
+        const doc = docs.find(d => d.id === trashConfirmId)
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+            <div className="absolute inset-0" onClick={() => setTrashConfirmId(null)} />
+            <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-xs p-6">
+              <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Move to Trash?</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-5 leading-relaxed">
+                &ldquo;{doc?.title || "Untitled"}&rdquo; will be moved to Trash. You can restore it any time from the Trash section.
+              </p>
+              <div className="flex gap-2">
+                <button onClick={() => setTrashConfirmId(null)} className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-600 text-xs font-medium text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Cancel</button>
+                <button onClick={() => { handleTrash(trashConfirmId); setTrashConfirmId(null) }} className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-xs font-medium text-white rounded-lg transition-colors">Move to Trash</button>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* ── Empty trash confirm ── */}
       {confirmEmptyTrash && (
