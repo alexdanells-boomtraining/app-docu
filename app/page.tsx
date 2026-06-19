@@ -441,38 +441,59 @@ function HistoryMockup() {
   )
 }
 
-// ── Lightning bolts ────────────────────────────────────────────────────────────
+// ── Floating hero elements (bolts + documents) ────────────────────────────────
 
-const BOLTS = [
-  { x: "6%",  y: "18%", size: 20, color: "#3b82f6", opacity: 0.35, dur: "3.2s", delay: "0s",    rot: "-12deg", dx: "22px"  },
-  { x: "14%", y: "64%", size: 15, color: "#6366f1", opacity: 0.30, dur: "4.1s", delay: "1.4s",  rot: "-8deg",  dx: "18px"  },
-  { x: "23%", y: "36%", size: 24, color: "#8b5cf6", opacity: 0.28, dur: "3.6s", delay: "2.8s",  rot: "-15deg", dx: "30px"  },
-  { x: "37%", y: "10%", size: 16, color: "#6366f1", opacity: 0.25, dur: "3.9s", delay: "0.6s",  rot: "-10deg", dx: "14px"  },
-  { x: "52%", y: "76%", size: 21, color: "#3b82f6", opacity: 0.30, dur: "3.4s", delay: "2.1s",  rot: "-13deg", dx: "26px"  },
-  { x: "66%", y: "26%", size: 17, color: "#8b5cf6", opacity: 0.28, dur: "4.3s", delay: "0.9s",  rot: "-9deg",  dx: "20px"  },
-  { x: "77%", y: "57%", size: 13, color: "#6366f1", opacity: 0.24, dur: "3.7s", delay: "3.5s",  rot: "-11deg", dx: "16px"  },
-  { x: "87%", y: "19%", size: 22, color: "#3b82f6", opacity: 0.32, dur: "3.0s", delay: "1.7s",  rot: "-14deg", dx: "24px"  },
-  { x: "93%", y: "70%", size: 14, color: "#8b5cf6", opacity: 0.26, dur: "4.5s", delay: "4.4s",  rot: "-8deg",  dx: "12px"  },
+type FloatEl = {
+  kind: "bolt" | "doc"
+  x: string; y: string; size: number; color: string; opacity: number
+  dur: string; delay: string; rot: string; dx: string
+}
+
+const ELEMENTS: FloatEl[] = [
+  // ── Bolts — fast, streak upward-right ──
+  { kind: "bolt", x: "5%",  y: "15%", size: 20, color: "#3b82f6", opacity: 0.35, dur: "3.2s", delay: "0s",   rot: "-12deg", dx: "24px"  },
+  { kind: "bolt", x: "22%", y: "40%", size: 24, color: "#8b5cf6", opacity: 0.30, dur: "3.6s", delay: "2.8s", rot: "-15deg", dx: "30px"  },
+  { kind: "bolt", x: "50%", y: "75%", size: 21, color: "#3b82f6", opacity: 0.30, dur: "3.4s", delay: "2.1s", rot: "-13deg", dx: "26px"  },
+  { kind: "bolt", x: "66%", y: "25%", size: 17, color: "#8b5cf6", opacity: 0.28, dur: "4.3s", delay: "0.9s", rot: "-9deg",  dx: "20px"  },
+  { kind: "bolt", x: "87%", y: "18%", size: 22, color: "#3b82f6", opacity: 0.32, dur: "3.0s", delay: "1.7s", rot: "-14deg", dx: "22px"  },
+  { kind: "bolt", x: "93%", y: "68%", size: 14, color: "#6366f1", opacity: 0.26, dur: "4.5s", delay: "4.4s", rot: "-8deg",  dx: "12px"  },
+  // ── Documents — slightly slower, tumble as they travel ──
+  { kind: "doc",  x: "12%", y: "60%", size: 22, color: "#6366f1", opacity: 0.55, dur: "5.2s", delay: "1.2s", rot: "-8deg",  dx: "18px"  },
+  { kind: "doc",  x: "33%", y: "8%",  size: 18, color: "#3b82f6", opacity: 0.50, dur: "4.8s", delay: "3.5s", rot: "6deg",   dx: "-14px" },
+  { kind: "doc",  x: "46%", y: "83%", size: 26, color: "#8b5cf6", opacity: 0.48, dur: "5.6s", delay: "0.7s", rot: "-12deg", dx: "22px"  },
+  { kind: "doc",  x: "74%", y: "52%", size: 20, color: "#6366f1", opacity: 0.52, dur: "4.6s", delay: "2.6s", rot: "8deg",   dx: "-16px" },
+  { kind: "doc",  x: "81%", y: "32%", size: 16, color: "#3b82f6", opacity: 0.45, dur: "5.8s", delay: "4.0s", rot: "-5deg",  dx: "-18px" },
+  { kind: "doc",  x: "18%", y: "22%", size: 19, color: "#8b5cf6", opacity: 0.48, dur: "5.0s", delay: "5.5s", rot: "10deg",  dx: "16px"  },
 ]
 
-function LightningBolts() {
+function FloatingElements() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      {BOLTS.map((b, i) => (
+      {ELEMENTS.map((el, i) => (
         <div
           key={i}
-          className="absolute bolt-float"
+          className={`absolute ${el.kind === "bolt" ? "bolt-float" : "doc-float"}`}
           style={{
-            left: b.x, top: b.y,
-            "--bolt-dur": b.dur,
-            "--bolt-delay": b.delay,
-            "--bolt-r": b.rot,
-            "--bolt-dx": b.dx,
+            left: el.x, top: el.y,
+            "--bolt-dur": el.dur,
+            "--bolt-delay": el.delay,
+            "--bolt-r": el.rot,
+            "--bolt-dx": el.dx,
           } as React.CSSProperties}
         >
-          <svg width={b.size} height={Math.round(b.size * 1.5)} viewBox="0 0 14 22" fill={b.color} opacity={b.opacity}>
-            <path d="M8 0L0 13h5.5L4 22l10-13H8.5z" />
-          </svg>
+          {el.kind === "bolt" ? (
+            <svg width={el.size} height={Math.round(el.size * 1.57)} viewBox="0 0 14 22" fill={el.color} opacity={el.opacity}>
+              <path d="M8 0L0 13h5.5L4 22l10-13H8.5z" />
+            </svg>
+          ) : (
+            <svg width={el.size} height={Math.round(el.size * 1.3)} viewBox="0 0 16 21" fill="none" opacity={el.opacity}>
+              <path d="M1 3C1 1.9 1.9 1 3 1h8l4 4v13c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3Z" fill={el.color} fillOpacity={0.12} stroke={el.color} strokeWidth="1.2" strokeLinejoin="round"/>
+              <path d="M11 1v4h4" stroke={el.color} strokeWidth="1.2" strokeLinejoin="round"/>
+              <line x1="4" y1="9"  x2="12" y2="9"  stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+              <line x1="4" y1="12" x2="12" y2="12" stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+              <line x1="4" y1="15" x2="8.5" y2="15" stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+            </svg>
+          )}
         </div>
       ))}
     </div>
@@ -695,7 +716,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-blue-100 to-violet-100 opacity-50 blur-3xl pointer-events-none" />
         <div className="absolute top-40 -left-20 w-80 h-80 rounded-full bg-gradient-to-tr from-indigo-100 to-pink-100 opacity-30 blur-3xl pointer-events-none" />
-        <LightningBolts />
+        <FloatingElements />
 
         <div className="max-w-6xl mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-16">
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-16 items-center">

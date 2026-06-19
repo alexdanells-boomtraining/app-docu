@@ -162,6 +162,23 @@ function ListIcon() { return <svg className="w-3.5 h-3.5" fill="none" viewBox="0
 function KeyboardIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3m4.5 4.5h.008v.008H7.5V9.75Zm3 0h.008v.008H10.5V9.75Zm3 0h.008v.008H13.5V9.75Zm3 0h.008v.008H16.5V9.75Zm-9 3h.008v.008H7.5v-.008Zm3 0h.008v.008H10.5v-.008Zm3 0h.008v.008H13.5v-.008Zm3 0h.008v.008H16.5v-.008Zm-9 3h6.008v.008H7.5v-.008Z"/></svg> }
 function BookOpenIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg> }
 
+// ── What's New panel ─────────────────────────────────────────────────────────
+
+const WHATS_NEW = [
+  { date: "Jun 2026", label: "What's New Bubble",  desc: "Alex's face appears in the corner — click for the latest feature updates."  },
+  { date: "Jun 2026", label: "User Guide",          desc: "Full feature reference inside the app — click the button in the sidebar footer." },
+  { date: "Jun 2026", label: "First-Run Tutorial",  desc: "6-step walkthrough shown the first time you open the workspace."              },
+  { date: "Jun 2026", label: "Lightning + Docs",    desc: "Animated bolts and floating documents on the home page hero."                 },
+  { date: "May 2026", label: "5 Workspace Themes",  desc: "Professional, Videogames, Space, Nature, and CityScape colour sets."          },
+  { date: "May 2026", label: "Focus Mode",          desc: "⌘\\ hides the sidebar and toolbar for distraction-free writing."              },
+  { date: "May 2026", label: "Table of Contents",   desc: "Auto-generated from H1/H2 headings — click any entry to scroll."              },
+  { date: "May 2026", label: "Document History",    desc: "Save up to 3 snapshots per doc with ⌘S and restore any version."              },
+  { date: "May 2026", label: "Folder Drag & Drop",  desc: "Drag documents between folders directly in the sidebar."                      },
+  { date: "Apr 2026", label: "Inline Images",       desc: "Paste or use the toolbar to embed images (base64, 5 MB max)."                 },
+  { date: "Apr 2026", label: "Full-Text Search",    desc: "Command palette and sidebar search scan both title and body content."          },
+  { date: "Apr 2026", label: "Command Palette",     desc: "⌘K opens a spotlight-style palette to jump anywhere instantly."               },
+]
+
 // ── Tutorial steps ────────────────────────────────────────────────────────────
 
 type TutorialStep = {
@@ -340,6 +357,8 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [tutorialStep, setTutorialStep] = useState(0)
   const [showUserGuide, setShowUserGuide] = useState(false)
   const [guideSection, setGuideSection] = useState(0)
+  const [whatsNewOpen, setWhatsNewOpen] = useState(false)
+  const [whatsNewDismissed, setWhatsNewDismissed] = useState(false)
 
   const t = THEMES[workspaceTheme]
 
@@ -1656,8 +1675,63 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
         </div>
       )}
 
+      {/* ── What's New bubble ── */}
+      <div className="fixed bottom-5 right-5 z-[55] flex flex-col items-end gap-2 print:hidden">
+        {/* Expanded panel */}
+        {!whatsNewDismissed && whatsNewOpen && (
+          <div className="overlay-enter w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/15 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-gray-100 dark:border-gray-700">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/alex.jpg" alt="Alex Danells" className="w-9 h-9 rounded-full object-cover ring-2 ring-blue-200 dark:ring-blue-700 shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 leading-tight">Alex Danells</p>
+                <p className="text-[11px] text-blue-600 dark:text-blue-400 leading-tight">What&apos;s new in SuperDocu</p>
+              </div>
+              <button
+                onClick={() => { setWhatsNewOpen(false); setWhatsNewDismissed(true) }}
+                className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors shrink-0"
+                aria-label="Dismiss"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            {/* Feature list — newest first */}
+            <ul className="px-4 py-3 space-y-2.5 max-h-64 overflow-y-auto">
+              {WHATS_NEW.map(item => (
+                <li key={item.label} className="flex gap-2.5">
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 mt-1.5 ${t.accentBar}`} />
+                  <div>
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-xs font-semibold text-gray-800 dark:text-gray-200 leading-tight">{item.label}</p>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500 shrink-0">{item.date}</span>
+                    </div>
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Collapsed tab / avatar trigger */}
+        {!whatsNewDismissed && (
+          <button
+            onClick={() => setWhatsNewOpen(v => !v)}
+            className="group flex items-center gap-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200/70 dark:border-gray-600/70 rounded-full shadow-lg shadow-black/10 pl-1 pr-3 py-1 hover:shadow-xl hover:scale-105 transition-all duration-200"
+            title="What's new"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/alex.jpg" alt="" className="w-7 h-7 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-600 shrink-0" />
+            <span className="text-[11px] font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">
+              {whatsNewOpen ? "Close" : "What's new"}
+            </span>
+          </button>
+        )}
+      </div>
+
       {/* ── Toast notifications ── */}
-      <div className="fixed bottom-5 right-5 z-[60] flex flex-col gap-2 pointer-events-none print:hidden">
+      <div className="fixed bottom-20 right-5 z-[60] flex flex-col gap-2 pointer-events-none print:hidden">
         {toasts.map(toast => (
           <div key={toast.id} className={`toast-enter relative flex items-center gap-3 pl-5 pr-5 py-3 rounded-xl shadow-xl shadow-black/10 text-sm font-medium pointer-events-auto max-w-xs overflow-hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border border-gray-100 dark:border-gray-700 ${toast.isError ? "text-red-700 dark:text-red-300" : "text-gray-800 dark:text-gray-100"}`}>
             <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-xl ${toast.isError ? "bg-red-500" : t.accentBar}`} />
