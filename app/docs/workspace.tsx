@@ -1149,8 +1149,34 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
               </div>
             </div>
           ) : !selectedDoc ? (
-            <div className="flex-1 flex items-center justify-center p-6">
-              <div className="text-center max-w-xs">
+            <div className="relative flex-1 flex items-center justify-center p-6 overflow-hidden">
+              {/* Subtle floating bolts + docs behind the empty state */}
+              <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+                {([
+                  { kind:"bolt", x:"8%",  y:"20%", size:16, color:"#3b82f6", opacity:0.22, dur:"3.4s", delay:"0s",   rot:"-12deg", dx:"20px" },
+                  { kind:"bolt", x:"85%", y:"15%", size:14, color:"#8b5cf6", opacity:0.20, dur:"3.8s", delay:"1.6s", rot:"-9deg",  dx:"16px" },
+                  { kind:"bolt", x:"78%", y:"72%", size:18, color:"#6366f1", opacity:0.22, dur:"3.1s", delay:"3.0s", rot:"-14deg", dx:"18px" },
+                  { kind:"doc",  x:"15%", y:"65%", size:20, color:"#6366f1", opacity:0.35, dur:"5.0s", delay:"1.0s", rot:"-7deg",  dx:"16px" },
+                  { kind:"doc",  x:"72%", y:"38%", size:17, color:"#3b82f6", opacity:0.32, dur:"5.4s", delay:"2.8s", rot:"8deg",   dx:"-14px"},
+                  { kind:"doc",  x:"42%", y:"80%", size:22, color:"#8b5cf6", opacity:0.30, dur:"4.8s", delay:"4.2s", rot:"-10deg", dx:"20px" },
+                ] as {kind:string;x:string;y:string;size:number;color:string;opacity:number;dur:string;delay:string;rot:string;dx:string}[]).map((el, i) => (
+                  <div key={i} className={`absolute ${el.kind === "bolt" ? "bolt-float" : "doc-float"}`}
+                    style={{ left: el.x, top: el.y, "--bolt-dur": el.dur, "--bolt-delay": el.delay, "--bolt-r": el.rot, "--bolt-dx": el.dx } as React.CSSProperties}>
+                    {el.kind === "bolt" ? (
+                      <svg width={el.size} height={Math.round(el.size * 1.57)} viewBox="0 0 14 22" fill={el.color} opacity={el.opacity}><path d="M8 0L0 13h5.5L4 22l10-13H8.5z"/></svg>
+                    ) : (
+                      <svg width={el.size} height={Math.round(el.size * 1.3)} viewBox="0 0 16 21" fill="none" opacity={el.opacity}>
+                        <path d="M1 3C1 1.9 1.9 1 3 1h8l4 4v13c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3Z" fill={el.color} fillOpacity={0.12} stroke={el.color} strokeWidth="1.2" strokeLinejoin="round"/>
+                        <path d="M11 1v4h4" stroke={el.color} strokeWidth="1.2" strokeLinejoin="round"/>
+                        <line x1="4" y1="9"  x2="12" y2="9"  stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+                        <line x1="4" y1="12" x2="12" y2="12" stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+                        <line x1="4" y1="15" x2="8.5" y2="15" stroke={el.color} strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="relative text-center max-w-xs">
                 <div className="mx-auto mb-6 w-28 h-28 flex items-center justify-center">
                   <svg viewBox="0 0 120 110" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                     <rect x="18" y="14" width="72" height="86" rx="9" fill="#f3f4f6" className="dark:fill-gray-700"/>
