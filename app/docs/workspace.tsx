@@ -165,18 +165,18 @@ function BookOpenIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0
 // ── What's New panel ─────────────────────────────────────────────────────────
 
 const WHATS_NEW = [
-  { date: "Jun 2026", label: "What's New Bubble",  desc: "Alex's face appears in the corner — click for the latest feature updates."  },
-  { date: "Jun 2026", label: "User Guide",          desc: "Full feature reference inside the app — click the button in the sidebar footer." },
-  { date: "Jun 2026", label: "First-Run Tutorial",  desc: "6-step walkthrough shown the first time you open the workspace."              },
-  { date: "Jun 2026", label: "Lightning + Docs",    desc: "Animated bolts and floating documents on the home page hero."                 },
-  { date: "May 2026", label: "5 Workspace Themes",  desc: "Professional, Videogames, Space, Nature, and CityScape colour sets."          },
-  { date: "May 2026", label: "Focus Mode",          desc: "⌘\\ hides the sidebar and toolbar for distraction-free writing."              },
-  { date: "May 2026", label: "Table of Contents",   desc: "Auto-generated from H1/H2 headings — click any entry to scroll."              },
-  { date: "May 2026", label: "Document History",    desc: "Save up to 3 snapshots per doc with ⌘S and restore any version."              },
-  { date: "May 2026", label: "Folder Drag & Drop",  desc: "Drag documents between folders directly in the sidebar."                      },
-  { date: "Apr 2026", label: "Inline Images",       desc: "Paste or use the toolbar to embed images (base64, 5 MB max)."                 },
-  { date: "Apr 2026", label: "Full-Text Search",    desc: "Command palette and sidebar search scan both title and body content."          },
-  { date: "Apr 2026", label: "Command Palette",     desc: "⌘K opens a spotlight-style palette to jump anywhere instantly."               },
+  { date: "19 Jun 2026", label: "What's New Bubble",  desc: "Alex's face appears in the corner — click for the latest feature updates."  },
+  { date: "19 Jun 2026", label: "User Guide",          desc: "Full feature reference inside the app — click the button in the sidebar footer." },
+  { date: "19 Jun 2026", label: "First-Run Tutorial",  desc: "6-step walkthrough shown the first time you open the workspace."              },
+  { date: "19 Jun 2026", label: "Lightning + Docs",    desc: "Animated bolts and floating documents on the home page hero."                 },
+  { date: "12 May 2026", label: "5 Workspace Themes",  desc: "Professional, Videogames, Space, Nature, and CityScape colour sets."          },
+  { date: "12 May 2026", label: "Focus Mode",          desc: "⌘\\ hides the sidebar and toolbar for distraction-free writing."              },
+  { date: "10 May 2026", label: "Table of Contents",   desc: "Auto-generated from H1/H2 headings — click any entry to scroll."              },
+  { date: "10 May 2026", label: "Document History",    desc: "Save up to 3 snapshots per doc with ⌘S and restore any version."              },
+  { date: "8 May 2026",  label: "Folder Drag & Drop",  desc: "Drag documents between folders directly in the sidebar."                      },
+  { date: "22 Apr 2026", label: "Inline Images",       desc: "Paste or use the toolbar to embed images (base64, 5 MB max)."                 },
+  { date: "18 Apr 2026", label: "Full-Text Search",    desc: "Command palette and sidebar search scan both title and body content."          },
+  { date: "15 Apr 2026", label: "Command Palette",     desc: "⌘K opens a spotlight-style palette to jump anywhere instantly."               },
 ]
 
 // ── Tutorial steps ────────────────────────────────────────────────────────────
