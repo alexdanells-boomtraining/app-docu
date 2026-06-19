@@ -839,8 +839,9 @@ export default function Home() {
       </section>
 
       {/* ── Brainchild ── */}
-      <section className="bg-slate-50 border-t border-slate-100 px-6 py-16 md:py-20">
-        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-10 text-center sm:text-left">
+      <section className="relative overflow-hidden bg-slate-50 border-t border-slate-100 px-6 py-16 md:py-20">
+        <FloatingElements />
+        <div className="relative max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-10 text-center sm:text-left">
           <div className="shrink-0">
             <Image
               src="/alex.jpg"

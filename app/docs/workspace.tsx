@@ -1674,11 +1674,19 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
         </div>
       )}
 
-      {/* ── What's New bubble ── */}
-      <div className="fixed bottom-5 right-0 z-[55] flex flex-col items-end gap-2 print:hidden">
-        {/* Expanded panel */}
-        {whatsNewOpen && (
-          <div className="overlay-enter mr-4 w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/15 overflow-hidden">
+      {/* ── What's New drawer ── */}
+      {/* Tab handle is always visible, flush to right edge. Panel slides out to the left. */}
+      <div className="fixed bottom-24 right-0 z-[55] flex items-end print:hidden" style={{ pointerEvents: "none" }}>
+        {/* Slide-out panel */}
+        <div
+          className="transition-all duration-300 ease-in-out overflow-hidden"
+          style={{
+            width: whatsNewOpen ? "288px" : "0px",
+            opacity: whatsNewOpen ? 1 : 0,
+            pointerEvents: whatsNewOpen ? "auto" : "none",
+          }}
+        >
+          <div className="w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-r-0 border-gray-200/70 dark:border-gray-600/70 rounded-l-2xl shadow-2xl shadow-black/15 overflow-hidden">
             {/* Header */}
             <div className="flex items-center gap-3 px-4 pt-4 pb-3 border-b border-gray-100 dark:border-gray-700">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1687,15 +1695,8 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                 <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 leading-tight">Alex Danells</p>
                 <p className="text-[11px] text-blue-600 dark:text-blue-400 leading-tight">What&apos;s new in SuperDocu</p>
               </div>
-              <button
-                onClick={() => setWhatsNewOpen(false)}
-                className="ml-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors shrink-0"
-                aria-label="Close"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
-              </button>
             </div>
-            {/* Feature list — newest first */}
+            {/* Feature list */}
             <ul className="px-4 py-3 space-y-2.5 max-h-64 overflow-y-auto">
               {WHATS_NEW.map(item => (
                 <li key={item.label} className="flex gap-2.5">
@@ -1711,21 +1712,29 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
               ))}
             </ul>
           </div>
-        )}
+        </div>
 
-        {/* Tab — always visible, anchored to the right edge */}
+        {/* Tab handle — always visible, flush to the right edge */}
         <button
           onClick={() => setWhatsNewOpen(v => !v)}
-          className="group flex items-center gap-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border border-r-0 border-gray-200/80 dark:border-gray-600/70 rounded-l-xl shadow-lg shadow-black/10 pl-2 pr-3 py-2 hover:shadow-xl hover:pr-4 transition-all duration-200"
+          style={{ pointerEvents: "auto" }}
+          className="flex flex-col items-center gap-1.5 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md border border-r-0 border-gray-200/80 dark:border-gray-600/70 rounded-l-xl px-1.5 py-3 shadow-lg shadow-black/10 hover:shadow-xl transition-shadow duration-200 shrink-0"
           title="What's new"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/alex.jpg" alt="" className="w-7 h-7 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-600 shrink-0" />
-          <div className="text-left">
-            <p className="text-[10px] font-semibold text-gray-700 dark:text-gray-200 leading-tight whitespace-nowrap">What&apos;s new</p>
-            <p className="text-[9px] text-gray-400 dark:text-gray-500 leading-tight whitespace-nowrap">Latest updates</p>
-          </div>
-          <svg className={`w-3 h-3 text-gray-400 shrink-0 transition-transform duration-200 ${whatsNewOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>
+          <img src="/alex.jpg" alt="" className="w-6 h-6 rounded-full object-cover ring-2 ring-blue-300 dark:ring-blue-600" />
+          <span
+            className="text-[9px] font-semibold text-gray-500 dark:text-gray-400 whitespace-nowrap leading-none"
+            style={{ writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)" }}
+          >
+            What&apos;s new
+          </span>
+          <svg
+            className={`w-2.5 h-2.5 text-gray-400 transition-transform duration-200 ${whatsNewOpen ? "-rotate-90" : "rotate-90"}`}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/>
+          </svg>
         </button>
       </div>
 
