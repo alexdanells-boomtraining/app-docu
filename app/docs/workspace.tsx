@@ -160,6 +160,114 @@ function LinkIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 2
 function ImageIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg> }
 function ListIcon() { return <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg> }
 function KeyboardIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3m4.5 4.5h.008v.008H7.5V9.75Zm3 0h.008v.008H10.5V9.75Zm3 0h.008v.008H13.5V9.75Zm3 0h.008v.008H16.5V9.75Zm-9 3h.008v.008H7.5v-.008Zm3 0h.008v.008H10.5v-.008Zm3 0h.008v.008H13.5v-.008Zm3 0h.008v.008H16.5v-.008Zm-9 3h6.008v.008H7.5v-.008Z"/></svg> }
+function BookOpenIcon() { return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg> }
+
+// ── Tutorial steps ────────────────────────────────────────────────────────────
+
+type TutorialStep = {
+  title: string; body: string
+  shortcutKeys?: string[]; shortcutHint?: string
+  iconBg: string; iconColor: string; iconPath: string
+}
+
+const TUTORIAL_STEPS: TutorialStep[] = [
+  {
+    title: "Welcome to SuperDocu",
+    body: "Your personal document workspace, entirely in your browser. No account required, no cloud, and nothing ever leaves your device.",
+    iconBg: "bg-violet-100", iconColor: "text-violet-600",
+    iconPath: "M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z",
+  },
+  {
+    title: "Creating & writing",
+    body: "Click '+ New Document' in the sidebar to start writing. Give it a title, then type in the body below. Your work autosaves 500ms after every keystroke — the amber dot on Save means a save is pending.",
+    iconBg: "bg-blue-100", iconColor: "text-blue-600",
+    iconPath: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z",
+  },
+  {
+    title: "Rich text formatting",
+    body: "Use the formatting toolbar to apply bold, italic, underline, headings, highlight, bullet lists, and numbered lists. Insert links and images directly into your documents.",
+    shortcutKeys: ["⌘", "B"], shortcutHint: "bold · ⌘I italic · ⌘U underline",
+    iconBg: "bg-indigo-100", iconColor: "text-indigo-600",
+    iconPath: "M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10",
+  },
+  {
+    title: "Folders, tags & search",
+    body: "Create folders to group related documents and drag-and-drop docs between them. Add tags to each document for sidebar filtering. The search bar scans both titles and body content.",
+    iconBg: "bg-emerald-100", iconColor: "text-emerald-600",
+    iconPath: "M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v8.25m19.5 0v-8.25a2.25 2.25 0 0 0-2.25-2.25H8.69",
+  },
+  {
+    title: "Command palette & shortcuts",
+    body: "Press ⌘K from anywhere to search documents and trigger any action without a mouse. ⌘S saves a version snapshot. ⌘\\ toggles focus mode for distraction-free writing. Press ? to see all shortcuts.",
+    shortcutKeys: ["⌘", "K"], shortcutHint: "open the command palette from anywhere",
+    iconBg: "bg-rose-100", iconColor: "text-rose-600",
+    iconPath: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z",
+  },
+  {
+    title: "Themes, history & more",
+    body: "Pick from 5 workspace themes using the colour swatches in the sidebar. Version History (the clock button) saves and restores up to 3 snapshots per document. Export your workspace from Settings anytime.",
+    iconBg: "bg-amber-100", iconColor: "text-amber-600",
+    iconPath: "M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z",
+  },
+]
+
+// ── User guide sections ────────────────────────────────────────────────────────
+
+type GuideItem = { name: string; description: string }
+type GuideSection = { title: string; items: GuideItem[] }
+
+const GUIDE_SECTIONS: GuideSection[] = [
+  {
+    title: "Writing",
+    items: [
+      { name: "New Document", description: "Click '+ New Document' in the sidebar. The title field auto-focuses so you can start immediately." },
+      { name: "Autosave", description: "Content saves automatically 500ms after you stop typing. The amber dot on the Save button means a save is in progress." },
+      { name: "Rich text", description: "Format with the toolbar: Bold (⌘B), Italic (⌘I), Underline (⌘U), Strikethrough, Highlight, H1/H2 headings, bullet and numbered lists." },
+      { name: "Links", description: "Select text, click the link icon in the toolbar, and paste a URL. Click an active link and press the icon again to remove it." },
+      { name: "Images", description: "Click the image icon in the toolbar to embed an image from your device. Images are stored as base64 — maximum 5 MB each." },
+      { name: "Read mode", description: "Toggle between Edit and Read using the buttons in the top bar. Read mode prevents accidental edits and hides the formatting toolbar." },
+      { name: "Word count", description: "Shown below the editor in Edit mode." },
+    ],
+  },
+  {
+    title: "Organising",
+    items: [
+      { name: "Folders", description: "Click the folder icon next to '+ New Document' to create a folder. Drag document rows between folders, or right-click a row for a context menu." },
+      { name: "Tags", description: "In Edit mode, type a tag in the input at the bottom of the editor and press Enter or comma. Tags appear in the sidebar as filter buttons." },
+      { name: "Search", description: "The sidebar search scans both document titles and body content in real time — no need to open each document." },
+      { name: "Sort order", description: "Sort the document list by Last Updated, Created date, or A–Z title using the Sort buttons above the list." },
+      { name: "Starred documents", description: "Hover a document row and click the star icon to mark it as a favourite. Starred documents float to the top of the sidebar." },
+    ],
+  },
+  {
+    title: "Navigation",
+    items: [
+      { name: "Command Palette (⌘K)", description: "Press ⌘K from anywhere to search documents, open folders, or trigger actions like New Document or Settings — entirely keyboard driven." },
+      { name: "Focus Mode (⌘\\)", description: "Hides the sidebar and toolbar so you can write without distractions. Press ⌘\\ again or Esc to exit." },
+      { name: "Table of Contents", description: "If a document contains 2 or more headings, a Contents button appears in the top bar. Click it for a clickable outline to jump between sections." },
+      { name: "Scroll memory", description: "SuperDocu remembers your exact scroll position in each document and returns you to it when you switch back." },
+      { name: "Keyboard Shortcuts (?)", description: "Press ? at any time (outside a text input) to open a list of all keyboard shortcuts." },
+    ],
+  },
+  {
+    title: "History & Data",
+    items: [
+      { name: "Version History", description: "Click the clock (History) button in the document top bar. Up to 3 snapshots are stored per document." },
+      { name: "Save a version (⌘S)", description: "Press ⌘S or click the Save button to capture a snapshot. You can restore any saved version with one click." },
+      { name: "Export", description: "Open Settings (cog icon) and click 'Download workspace' to save all documents as a JSON file." },
+      { name: "Import", description: "In Settings, use 'Choose file' under Import to load an exported file. Choose Merge (keep existing) or Replace (overwrite everything)." },
+      { name: "Trash", description: "Click the trash icon on a document to move it to Trash. Restore individually, or 'Empty Trash' to permanently delete all trashed documents." },
+      { name: "Print", description: "Click the print icon in the top bar. The sidebar, toolbar, and UI chrome hide automatically when printing." },
+    ],
+  },
+  {
+    title: "Appearance",
+    items: [
+      { name: "Workspace themes", description: "Choose from Professional (blue), Videogames (purple), Space (indigo), Nature (green), or CityScape (amber) using the colour swatches in the sidebar." },
+      { name: "Light / Dark / High Contrast", description: "Click the sun or moon icon in the sidebar header to cycle between light mode, dark mode, and high-contrast mode." },
+    ],
+  },
+]
 
 // ── Toolbar button ─────────────────────────────────────────────────────────────
 
@@ -228,6 +336,9 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [confirmEmptyTrash, setConfirmEmptyTrash] = useState(false)
   const [showLinkInput, setShowLinkInput] = useState(false)
   const [linkUrl, setLinkUrl] = useState("")
+  const [showTutorial, setShowTutorial] = useState(false)
+  const [tutorialStep, setTutorialStep] = useState(0)
+  const [showUserGuide, setShowUserGuide] = useState(false)
 
   const t = THEMES[workspaceTheme]
 
@@ -361,6 +472,21 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   }, [])
 
   useEffect(() => { localStorage.setItem("docu-workspace-theme", workspaceTheme) }, [workspaceTheme])
+
+  // ── First-visit tutorial ──────────────────────────────────────────────────
+
+  useEffect(() => {
+    if (!localStorage.getItem("superdocu-tutorial-seen")) {
+      const timer = setTimeout(() => setShowTutorial(true), 700)
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
+  function closeTutorial() {
+    localStorage.setItem("superdocu-tutorial-seen", "1")
+    setShowTutorial(false)
+    setTutorialStep(0)
+  }
 
   // ── Reset dirty flag on doc switch ────────────────────────────────────────
 
@@ -975,9 +1101,12 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
             )}
           </div>
 
-          <div className="px-3 py-3 border-t border-gray-200 dark:border-gray-700 hc:border-white">
+          <div className="px-3 py-3 border-t border-gray-200 dark:border-gray-700 hc:border-white flex flex-col gap-1">
             <button onClick={() => setShowShortcuts(true)} className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
               <KeyboardIcon /> Keyboard shortcuts
+            </button>
+            <button onClick={() => setShowUserGuide(true)} className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
+              <BookOpenIcon /> User Guide
             </button>
           </div>
         </aside>
@@ -1196,6 +1325,121 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
         </div>
       </div>
 
+      {/* ── Tutorial popup ── */}
+      {showTutorial && (() => {
+        const step = TUTORIAL_STEPS[tutorialStep]
+        const isLast = tutorialStep === TUTORIAL_STEPS.length - 1
+        return (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+            <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/15 w-full max-w-md p-8">
+
+              {/* Header row */}
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs font-medium text-gray-400 tabular-nums">Step {tutorialStep + 1} of {TUTORIAL_STEPS.length}</span>
+                <button onClick={closeTutorial} title="Close tutorial" className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+
+              {/* Icon */}
+              <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl ${step.iconBg} ${step.iconColor} mb-5`}>
+                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d={step.iconPath} />
+                </svg>
+              </div>
+
+              {/* Content */}
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 hc:text-white mb-3 leading-tight">{step.title}</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-5">{step.body}</p>
+
+              {step.shortcutKeys && (
+                <div className="flex items-center gap-2 mb-5">
+                  {step.shortcutKeys.map((k, i) => (
+                    <kbd key={i} className="px-2 py-1 text-sm bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-sm font-mono text-gray-600 dark:text-gray-300">{k}</kbd>
+                  ))}
+                  <span className="text-xs text-gray-400 ml-1">{step.shortcutHint}</span>
+                </div>
+              )}
+
+              {/* Progress dots */}
+              <div className="flex items-center justify-center gap-1.5 mb-6">
+                {TUTORIAL_STEPS.map((_, i) => (
+                  <button key={i} onClick={() => setTutorialStep(i)}
+                    className={`rounded-full transition-all duration-200 ${i === tutorialStep ? "w-5 h-2 bg-gray-800 dark:bg-gray-200" : "w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"}`} />
+                ))}
+              </div>
+
+              {/* Navigation buttons */}
+              <div className="flex items-center gap-3">
+                {tutorialStep > 0 ? (
+                  <button onClick={() => setTutorialStep(s => s - 1)}
+                    className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    Back
+                  </button>
+                ) : (
+                  <button onClick={closeTutorial}
+                    className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-400 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    Skip
+                  </button>
+                )}
+                <button
+                  onClick={() => isLast ? closeTutorial() : setTutorialStep(s => s + 1)}
+                  className={`flex-1 px-4 py-2.5 text-sm font-semibold rounded-xl transition-colors ${t.btn}`}>
+                  {isLast ? "Get started" : "Next"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
+
+      {/* ── User Guide modal ── */}
+      {showUserGuide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+          <div className="absolute inset-0" onClick={() => setShowUserGuide(false)} />
+          <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-lg flex flex-col max-h-[85vh]">
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 shrink-0">
+              <div className="flex items-center gap-2">
+                <BookOpenIcon />
+                <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 hc:text-white">User Guide</h2>
+              </div>
+              <button onClick={() => setShowUserGuide(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            {/* Scrollable body */}
+            <div className="overflow-y-auto flex-1 px-6 py-5 space-y-6">
+              {GUIDE_SECTIONS.map((section) => (
+                <div key={section.title}>
+                  <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">{section.title}</p>
+                  <div className="space-y-3">
+                    {section.items.map((item) => (
+                      <div key={item.name} className="flex gap-3">
+                        <div className={`mt-0.5 w-1.5 h-1.5 rounded-full shrink-0 ${t.accentBar}`} style={{ marginTop: "6px" }} />
+                        <div>
+                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200 hc:text-white">{item.name}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5">{item.description}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0">
+              <p className="text-xs text-gray-400 text-center">
+                Press <kbd className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-gray-500 text-xs">?</kbd> at any time to see keyboard shortcuts
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── Command palette ── */}
       {showPalette && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] px-4 bg-black/20 backdrop-blur-sm" onClick={() => setShowPalette(false)}>
@@ -1325,6 +1569,20 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
                   <button onClick={() => setImportStep({ step: "idle" })} className="mt-3 text-xs text-gray-500 underline underline-offset-2 hover:text-gray-700">Import another file</button>
                 </div>
               )}
+            </div>
+            <div className="border-t border-gray-100 dark:border-gray-700 pt-5 mt-1">
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Tutorial</p>
+              <p className="text-xs text-gray-400 mb-3">Show the welcome tutorial again the next time you open the workspace.</p>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("superdocu-tutorial-seen")
+                  setShowSettings(false)
+                  addToast("Tutorial reset — reopen the workspace to see it")
+                }}
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-600 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                Reset tutorial
+              </button>
             </div>
           </div>
         </div>
