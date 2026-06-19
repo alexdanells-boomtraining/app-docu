@@ -339,6 +339,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [showTutorial, setShowTutorial] = useState(false)
   const [tutorialStep, setTutorialStep] = useState(0)
   const [showUserGuide, setShowUserGuide] = useState(false)
+  const [guideSection, setGuideSection] = useState(0)
 
   const t = THEMES[workspaceTheme]
 
@@ -1400,7 +1401,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-lg flex flex-col max-h-[85vh]">
 
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 shrink-0">
+            <div className="flex items-center justify-between px-6 pt-4 pb-3 shrink-0">
               <div className="flex items-center gap-2">
                 <BookOpenIcon />
                 <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 hc:text-white">User Guide</h2>
@@ -1410,28 +1411,44 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
               </button>
             </div>
 
-            {/* Scrollable body */}
-            <div className="overflow-y-auto flex-1 px-6 py-5 space-y-6">
-              {GUIDE_SECTIONS.map((section) => (
-                <div key={section.title}>
-                  <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">{section.title}</p>
-                  <div className="space-y-3">
-                    {section.items.map((item) => (
-                      <div key={item.name} className="flex gap-3">
-                        <div className={`mt-0.5 w-1.5 h-1.5 rounded-full shrink-0 ${t.accentBar}`} style={{ marginTop: "6px" }} />
-                        <div>
-                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200 hc:text-white">{item.name}</p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5">{item.description}</p>
-                        </div>
-                      </div>
-                    ))}
+            {/* Section tabs */}
+            <div className="px-4 pb-3 shrink-0 overflow-x-auto">
+              <div className="flex items-center gap-1.5 min-w-max">
+                {GUIDE_SECTIONS.map((section, i) => (
+                  <button
+                    key={section.title}
+                    onClick={() => setGuideSection(i)}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-lg whitespace-nowrap transition-colors ${
+                      guideSection === i
+                        ? `${t.btn}`
+                        : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    {section.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="h-px bg-gray-100 dark:bg-gray-700 shrink-0 mx-6" />
+
+            {/* Section content */}
+            <div className="overflow-y-auto flex-1 px-6 py-5">
+              <div className="space-y-3">
+                {GUIDE_SECTIONS[guideSection].items.map((item) => (
+                  <div key={item.name} className="flex gap-3">
+                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${t.accentBar}`} style={{ marginTop: "6px" }} />
+                    <div>
+                      <p className="text-sm font-medium text-gray-800 dark:text-gray-200 hc:text-white">{item.name}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5">{item.description}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0">
+            <div className="px-6 py-3.5 border-t border-gray-100 dark:border-gray-700 shrink-0">
               <p className="text-xs text-gray-400 text-center">
                 Press <kbd className="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-700 font-mono text-gray-500 text-xs">?</kbd> at any time to see keyboard shortcuts
               </p>
