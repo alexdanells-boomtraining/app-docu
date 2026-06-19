@@ -1700,9 +1700,8 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
         </div>
       )}
 
-      {/* ── What's New drawer ── */}
-      {/* Tab handle is always visible, flush to right edge. Panel slides out to the left. */}
-      <div className="fixed bottom-24 right-0 z-[55] flex items-end print:hidden" style={{ pointerEvents: "none" }}>
+      {/* ── What's New drawer — only shown when no document is open ── */}
+      {!selectedDoc && <div className="fixed bottom-24 right-0 z-[55] flex items-end print:hidden" style={{ pointerEvents: "none" }}>
         {/* Slide-out panel */}
         <div
           className="transition-all duration-300 ease-in-out overflow-hidden"
@@ -1762,7 +1761,7 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6"/>
           </svg>
         </button>
-      </div>
+      </div>}
 
       {/* ── Toast notifications ── */}
       <div className="fixed bottom-20 right-5 z-[60] flex flex-col gap-2 pointer-events-none print:hidden">
