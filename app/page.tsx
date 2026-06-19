@@ -444,15 +444,15 @@ function HistoryMockup() {
 // ── Lightning bolts ────────────────────────────────────────────────────────────
 
 const BOLTS = [
-  { x: "6%",  y: "18%", size: 18, color: "#3b82f6", opacity: 0.28, dur: "5.8s", delay: "0s",    rot: "-12deg" },
-  { x: "14%", y: "62%", size: 14, color: "#6366f1", opacity: 0.22, dur: "7.2s", delay: "1.4s",  rot: "-8deg"  },
-  { x: "24%", y: "38%", size: 22, color: "#8b5cf6", opacity: 0.20, dur: "6.4s", delay: "3.1s",  rot: "-15deg" },
-  { x: "38%", y: "12%", size: 15, color: "#6366f1", opacity: 0.18, dur: "6.8s", delay: "4.6s",  rot: "-10deg" },
-  { x: "52%", y: "78%", size: 19, color: "#3b82f6", opacity: 0.22, dur: "5.5s", delay: "2.3s",  rot: "-13deg" },
-  { x: "67%", y: "28%", size: 16, color: "#8b5cf6", opacity: 0.20, dur: "7.6s", delay: "0.9s",  rot: "-9deg"  },
-  { x: "78%", y: "58%", size: 12, color: "#6366f1", opacity: 0.17, dur: "6.1s", delay: "3.8s",  rot: "-11deg" },
-  { x: "88%", y: "20%", size: 20, color: "#3b82f6", opacity: 0.24, dur: "5.2s", delay: "1.7s",  rot: "-14deg" },
-  { x: "92%", y: "72%", size: 13, color: "#8b5cf6", opacity: 0.18, dur: "7.0s", delay: "5.2s",  rot: "-8deg"  },
+  { x: "6%",  y: "18%", size: 20, color: "#3b82f6", opacity: 0.35, dur: "3.2s", delay: "0s",    rot: "-12deg", dx: "22px"  },
+  { x: "14%", y: "64%", size: 15, color: "#6366f1", opacity: 0.30, dur: "4.1s", delay: "1.4s",  rot: "-8deg",  dx: "18px"  },
+  { x: "23%", y: "36%", size: 24, color: "#8b5cf6", opacity: 0.28, dur: "3.6s", delay: "2.8s",  rot: "-15deg", dx: "30px"  },
+  { x: "37%", y: "10%", size: 16, color: "#6366f1", opacity: 0.25, dur: "3.9s", delay: "0.6s",  rot: "-10deg", dx: "14px"  },
+  { x: "52%", y: "76%", size: 21, color: "#3b82f6", opacity: 0.30, dur: "3.4s", delay: "2.1s",  rot: "-13deg", dx: "26px"  },
+  { x: "66%", y: "26%", size: 17, color: "#8b5cf6", opacity: 0.28, dur: "4.3s", delay: "0.9s",  rot: "-9deg",  dx: "20px"  },
+  { x: "77%", y: "57%", size: 13, color: "#6366f1", opacity: 0.24, dur: "3.7s", delay: "3.5s",  rot: "-11deg", dx: "16px"  },
+  { x: "87%", y: "19%", size: 22, color: "#3b82f6", opacity: 0.32, dur: "3.0s", delay: "1.7s",  rot: "-14deg", dx: "24px"  },
+  { x: "93%", y: "70%", size: 14, color: "#8b5cf6", opacity: 0.26, dur: "4.5s", delay: "4.4s",  rot: "-8deg",  dx: "12px"  },
 ]
 
 function LightningBolts() {
@@ -467,6 +467,7 @@ function LightningBolts() {
             "--bolt-dur": b.dur,
             "--bolt-delay": b.delay,
             "--bolt-r": b.rot,
+            "--bolt-dx": b.dx,
           } as React.CSSProperties}
         >
           <svg width={b.size} height={Math.round(b.size * 1.5)} viewBox="0 0 14 22" fill={b.color} opacity={b.opacity}>
