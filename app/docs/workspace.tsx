@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import Underline from "@tiptap/extension-underline"
@@ -358,6 +359,8 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
   const [showUserGuide, setShowUserGuide] = useState(false)
   const [guideSection, setGuideSection] = useState(0)
   const [whatsNewOpen, setWhatsNewOpen] = useState(false)
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+  const router = useRouter()
 
   const t = THEMES[workspaceTheme]
 
@@ -960,9 +963,12 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
         <button onClick={() => setSidebarOpen(true)} className="p-1 text-gray-500 dark:text-gray-400 hc:text-white">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
         </button>
-        <Link href="/" className="text-sm font-extrabold tracking-tight hover:opacity-75 transition-opacity">
+        <button
+          onClick={() => selectedDoc && mode === "edit" ? setShowExitConfirm(true) : router.push("/")}
+          className="text-sm font-extrabold tracking-tight hover:opacity-75 transition-opacity"
+        >
           <span className="text-gray-900 dark:text-gray-100 hc:text-white">Super</span><span className="bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">Docu</span>
-        </Link>
+        </button>
         <div className="ml-auto flex items-center gap-1">
           <button onClick={cycleTheme} className="p-1 text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
             {theme === "light" ? <SunIcon /> : theme === "dark" ? <MoonIcon /> : <ContrastIcon />}
@@ -980,9 +986,12 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           <div className={`h-0.5 w-full transition-colors duration-500 ${t.accentBar}`} />
 
           <div className="hidden md:flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700 hc:border-white">
-            <Link href="/" className="text-sm font-extrabold tracking-tight hover:opacity-75 transition-opacity">
+            <button
+              onClick={() => selectedDoc && mode === "edit" ? setShowExitConfirm(true) : router.push("/")}
+              className="text-sm font-extrabold tracking-tight hover:opacity-75 transition-opacity"
+            >
               <span className="text-gray-900 dark:text-gray-100 hc:text-white">Super</span><span className="bg-gradient-to-r from-blue-600 via-violet-600 to-indigo-600 bg-clip-text text-transparent">Docu</span>
-            </Link>
+            </button>
             <div className="flex items-center gap-1">
               <button onClick={cycleTheme} title={`Mode: ${theme}`} className="p-1 rounded text-gray-400 hc:text-white hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                 {theme === "light" ? <SunIcon /> : theme === "dark" ? <MoonIcon /> : <ContrastIcon />}
@@ -1762,6 +1771,21 @@ export default function Workspace({ initialId }: { initialId: string | null }) {
           </svg>
         </button>
       </div>}
+
+      {/* ── Exit to home confirm ── */}
+      {showExitConfirm && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm">
+          <div className="absolute inset-0" onClick={() => setShowExitConfirm(false)} />
+          <div className="overlay-enter relative bg-white/95 dark:bg-gray-800/95 hc:bg-black backdrop-blur-xl border border-gray-200/70 dark:border-gray-600/70 rounded-2xl shadow-2xl shadow-black/10 w-full max-w-xs p-6">
+            <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Leave the workspace?</h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-5 leading-relaxed">Your document autosaves as you type, but any unsaved version snapshot will be lost. Are you sure you want to go back to the home page?</p>
+            <div className="flex gap-2">
+              <button onClick={() => setShowExitConfirm(false)} className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-600 text-xs font-medium text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Stay here</button>
+              <button onClick={() => { setShowExitConfirm(false); router.push("/") }} className={`flex-1 px-3 py-2 text-xs font-medium text-white rounded-lg transition-colors ${t.btn}`}>Go to home</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Toast notifications ── */}
       <div className="fixed bottom-20 right-5 z-[60] flex flex-col gap-2 pointer-events-none print:hidden">
